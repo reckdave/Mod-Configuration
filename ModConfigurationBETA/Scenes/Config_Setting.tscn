@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+var editable = true
+var config_title = ''
+var config_value = ''
+
+func _ready():
+	$Config_Value.visible = editable
+	if config_title != '':
+		if editable:
+			$Config_Title.align = Label.ALIGN_LEFT
+		$Config_Title.text = config_title
+	if editable and config_value != '':
+		$Config_Value.text = config_value 
+"
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.184314, 0.184314, 0.184314, 1 )
+border_blend = true
+
+[sub_resource type="Theme" id=3]
+TextEdit/colors/background_color = Color( 0, 0, 0, 0 )
+TextEdit/colors/bookmark_color = Color( 0.08, 0.49, 0.98, 1 )
+TextEdit/colors/brace_mismatch_color = Color( 1, 0.2, 0.2, 1 )
+TextEdit/colors/breakpoint_color = Color( 0.8, 0.8, 0.4, 0.2 )
+TextEdit/colors/caret_background_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/caret_color = Color( 0.88, 0.88, 0.88, 1 )
+TextEdit/colors/code_folding_color = Color( 0.8, 0.8, 0.8, 0.8 )
+TextEdit/colors/completion_background_color = Color( 0.17, 0.16, 0.2, 1 )
+TextEdit/colors/completion_existing_color = Color( 0.87, 0.87, 0.87, 0.13 )
+TextEdit/colors/completion_font_color = Color( 0.67, 0.67, 0.67, 1 )
+TextEdit/colors/completion_scroll_color = Color( 1, 1, 1, 1 )
+TextEdit/colors/completion_selected_color = Color( 0.26, 0.26, 0.27, 1 )
+TextEdit/colors/current_line_color = Color( 0.25, 0.25, 0.26, 0.8 )
+TextEdit/colors/executing_line_color = Color( 0.2, 0.8, 0.2, 0.4 )
+TextEdit/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+TextEdit/colors/font_color_readonly = Color( 0.88, 0.88, 0.88, 0.5 )
+TextEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
+TextEdit/colors/function_color = Color( 0.4, 0.64, 0.81, 1 )
+TextEdit/colors/line_number_color = Color( 0.67, 0.67, 0.67, 0.4 )
+TextEdit/colors/mark_color = Color( 1, 0.4, 0.4, 0.4 )
+TextEdit/colors/member_variable_color = Color( 0.9, 0.31, 0.35, 1 )
+TextEdit/colors/number_color = Color( 0.92, 0.58, 0.2, 1 )
+TextEdit/colors/safe_line_number_color = Color( 0.67, 0.78, 0.67, 0.6 )
+TextEdit/colors/selection_color = Color( 0.49, 0.49, 0.49, 1 )
+TextEdit/colors/symbol_color = Color( 0.94, 0.94, 0.94, 1 )
+TextEdit/colors/word_highlighted_color = Color( 0.8, 0.9, 0.9, 0.15 )
+TextEdit/constants/completion_lines = 7
+TextEdit/constants/completion_max_width = 50
+TextEdit/constants/completion_scroll_width = 3
+TextEdit/constants/line_spacing = 4
+TextEdit/fonts/font = null
+TextEdit/icons/fold = null
+TextEdit/icons/folded = null
+TextEdit/icons/space = null
+TextEdit/icons/tab = null
+TextEdit/styles/completion = null
+TextEdit/styles/focus = null
+TextEdit/styles/normal = SubResource( 2 )
+TextEdit/styles/read_only = null
+
+[node name="Config_Setting" type="Control"]
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 490.0
+margin_bottom = 20.0
+color = Color( 0.137255, 0.137255, 0.137255, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Config_Title" type="Label" parent="."]
+margin_left = 10.0
+margin_right = 245.0
+margin_bottom = 20.0
+text = "CONFIG_TITLE"
+align = 1
+valign = 1
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Config_Value" type="TextEdit" parent="."]
+margin_left = 245.0
+margin_right = 480.0
+margin_bottom = 20.0
+theme = SubResource( 3 )
+text = "Config EXG"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Seperate" type="ColorRect" parent="."]
+margin_left = 235.0
+margin_right = 236.0
+margin_bottom = 20.0
+color = Color( 0.262745, 0.262745, 0.262745, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
