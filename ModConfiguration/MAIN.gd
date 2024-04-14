@@ -4,6 +4,9 @@ onready var CONFIG_MENU = preload("res://ModConfiguration/Scenes/Config_Menu.tsc
 onready var CONFIG_SETTINGS = preload("res://ModConfiguration/Scenes/Config_Setting.tscn")
 onready var CONFIG_NODE = preload("res://ModConfiguration/Scenes/Config_Node.tscn")
 onready var CONFIG_LIST = $CONFIG_NODES
+onready var ANIMATION = $ANIMATION
+
+var VERSION = 'VER:1.1'
 
 var File_EXT = '.json'
 var Config_Path = 'user://config'
@@ -30,7 +33,10 @@ func _ready():
 	if !dir.dir_exists('config'):
 		pr('CONFIG FOLDER DOESNT EXIST.. CREATING')
 		dir.make_dir('config')
-	pr('STARTED')
+	pr('STARTED, ' + VERSION)
+	ANIMATION.play("LOAD")
+	yield(get_tree().create_timer(2,false),"timeout")
+	ANIMATION.play("INVISIBLE")
 
 func MakeConfig(Config_Name : String,Info : Dictionary):
 	if Info == null or Info.empty():
@@ -92,6 +98,8 @@ func _process(delta):
 				file.open(FullDir,File.WRITE)
 				file.store_string(JSON.print(node.Config_Values,'\t'))
 				file.close()
+			menu.get_node('ANIMATIONS').play('0')
+			yield(get_tree().create_timer(0.2,false),"timeout")
 			menu.queue_free()
 	if !PC_SCENE:
 		if 'PC' in get_parent().get_parent().get_node('0').get_child(0).name:
@@ -128,5 +136,6 @@ func _input(event):
 						Config_Setting.name = Config_name + '_' + Config_Title
 						LIST_BOX.add_child(Config_Setting)
 				applic.add_child(MENU)
+				MENU.get_node('ANIMATIONS').play('1')
 				MENU.position = Vector2(40,40)
 				APP_OPEN = true
