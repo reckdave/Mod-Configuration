@@ -15,7 +15,7 @@ func ConfigHandler():
 			if get_parent().has_node('Config_Scene'):
 				var node = get_parent().get_node('Config_Scene')
 				config_loaded = true
-				if node.VERSION == null or (node.VERSION > config_mod_ver_min):
+				if node.VERSION == null or (node.VERSION < config_mod_ver_min):
 					OS.alert("OUTDATED ModConfiguration, See the logs for more ","ERROR")
 					print('DOWNLOAD THE LATEST ModConfiguration VERSION: \nhttps://github.com/reckdave/Mod-Configuration/releases/tag/release1.1')
 				config_node = node.MakeConfig(config_name,config_author,config_info) 
