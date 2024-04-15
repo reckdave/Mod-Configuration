@@ -1,6 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ModConfiguration/MAIN.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=4]
+font_data = SubResource( 3 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "INVISIBLE"
@@ -40,6 +48,8 @@ margin_right = 68.0
 margin_bottom = 220.0
 rect_scale = Vector2( 2, 2 )
 rect_clip_content = false
+theme = SubResource( 5 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
 bbcode_enabled = true
 bbcode_text = "[center][wave amp=50 freq=2]VER:1.1"
 visible_characters = 7
