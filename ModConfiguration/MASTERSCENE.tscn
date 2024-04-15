@@ -2,16 +2,15 @@
 
 [ext_resource path="res://ModConfiguration/MAIN.gd" type="Script" id=1]
 
-[sub_resource type="DynamicFontData" id=3]
+[sub_resource type="DynamicFontData" id=1]
 
-[sub_resource type="DynamicFont" id=4]
-font_data = SubResource( 3 )
+[sub_resource type="DynamicFont" id=2]
+font_data = SubResource( 1 )
 
-[sub_resource type="Theme" id=5]
-default_font = SubResource( 4 )
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "INVISIBLE"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("VersionLabel:modulate")
 tracks/0/interp = 1
@@ -25,7 +24,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("VersionLabel:modulate")
 tracks/0/interp = 1
@@ -48,7 +47,7 @@ margin_right = 68.0
 margin_bottom = 220.0
 rect_scale = Vector2( 2, 2 )
 rect_clip_content = false
-theme = SubResource( 5 )
+theme = SubResource( 3 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 bbcode_enabled = true
 bbcode_text = "[center][wave amp=50 freq=2]VER:1.1"
@@ -60,7 +59,7 @@ __meta__ = {
 }
 
 [node name="ANIMATION" type="AnimationPlayer" parent="."]
-anims/INVISIBLE = SubResource( 1 )
-anims/LOAD = SubResource( 2 )
+anims/INVISIBLE = SubResource( 4 )
+anims/LOAD = SubResource( 5 )
 
 [node name="CONFIG_NODES" type="Node" parent="."]

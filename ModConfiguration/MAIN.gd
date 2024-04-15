@@ -6,7 +6,7 @@ onready var CONFIG_NODE = preload("res://ModConfiguration/Scenes/Config_Node.tsc
 onready var CONFIG_LIST = $CONFIG_NODES
 onready var ANIMATION = $ANIMATION
 
-var VERSION = '1.1.1'
+var VERSION = '1.1.1a'
 
 var File_EXT = '.json'
 var Config_Path = 'user://config'

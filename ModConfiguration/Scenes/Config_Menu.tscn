@@ -218,8 +218,6 @@ __meta__ = {
 }
 
 [node name="List" type="VBoxContainer" parent="Active/Config_Container"]
-margin_bottom = 280.0
-rect_min_size = Vector2( 0, 280 )
 custom_constants/separation = 20
 
 [node name="ANIMATIONS" type="AnimationPlayer" parent="."]
