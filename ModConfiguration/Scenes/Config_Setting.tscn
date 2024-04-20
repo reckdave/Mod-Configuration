@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ModConfiguration/Assets/FontAsset.tres" type="DynamicFont" id=1]
 
@@ -7,28 +7,34 @@ script/source = "extends Control
 
 onready var Value_Text = $Config_Value
 onready var Title_Text = $Config_Title
+onready var Underline = $Underline
+onready var Seperate = $Seperate
 var editable = true
 var config_title = ''
 var config_value
 
 func _ready():
 	Value_Text.visible = editable
+	Seperate.visible = editable
 	if config_title != '':
 		if editable:
-			Title_Text.align = Label.ALIGN_LEFT
-		Title_Text.text = config_title
-	if editable and config_value != '':
+			Title_Text.ALIGN_LEFT
+		else:
+			Underline.visible = true
+			config_title = '[center]' + config_title
+		Title_Text.bbcode_text = config_title
+	if editable and config_value != null:
 		Value_Text.text = config_value 
 "
 
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0.231373 )
+
 [sub_resource type="StyleBoxEmpty" id=4]
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0, 0, 0, 0.152941 )
-
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[sub_resource type="Theme" id=7]
+[sub_resource type="Theme" id=5]
 LineEdit/colors/clear_button_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
 LineEdit/colors/cursor_color = Color( 0.94, 0.94, 0.94, 1 )
@@ -39,11 +45,11 @@ LineEdit/colors/selection_color = Color( 0.49, 0.49, 0.49, 1 )
 LineEdit/constants/minimum_spaces = 12
 LineEdit/fonts/font = null
 LineEdit/icons/clear = null
-LineEdit/styles/focus = SubResource( 4 )
-LineEdit/styles/normal = SubResource( 5 )
-LineEdit/styles/read_only = SubResource( 6 )
+LineEdit/styles/focus = SubResource( 2 )
+LineEdit/styles/normal = SubResource( 3 )
+LineEdit/styles/read_only = SubResource( 4 )
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=6]
 script/source = "extends LineEdit
 
 func _on_Config_Value_text_changed(new_text):
@@ -51,7 +57,24 @@ func _on_Config_Value_text_changed(new_text):
 	get_parent().config_value = vartext
 "
 
+[sub_resource type="Animation" id=7]
+resource_name = "0"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Config_Setting" type="Control"]
+modulate = Color( 1, 1, 1, 0 )
 script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -67,7 +90,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Config_Title" type="Label" parent="."]
+[node name="Config_TitleOLD" type="Label" parent="."]
+visible = false
 margin_left = 10.0
 margin_right = 245.0
 margin_bottom = 20.0
@@ -80,16 +104,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Config_Title" type="RichTextLabel" parent="."]
+margin_left = 10.0
+margin_right = 235.0
+margin_bottom = 20.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]CONFIG_TITLE"
+text = "CONFIG_TITLE"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Config_Value" type="LineEdit" parent="."]
-margin_left = 245.0
-margin_top = -2.0
-margin_right = 480.0
-margin_bottom = 24.0
-theme = SubResource( 7 )
+margin_left = 240.0
+margin_right = 510.0
+margin_bottom = 22.0
+rect_scale = Vector2( 0.9, 0.9 )
+theme = SubResource( 5 )
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "dd"
-script = SubResource( 10 )
+text = "Default Text"
+script = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -102,5 +139,19 @@ color = Color( 0.262745, 0.262745, 0.262745, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Underline" type="ColorRect" parent="."]
+visible = false
+margin_left = 10.0
+margin_top = 19.0
+margin_right = 230.0
+margin_bottom = 21.0
+color = Color( 0.262745, 0.262745, 0.262745, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ANIMATION" type="AnimationPlayer" parent="."]
+anims/0 = SubResource( 7 )
 
 [connection signal="text_changed" from="Config_Value" to="Config_Value" method="_on_Config_Value_text_changed"]
