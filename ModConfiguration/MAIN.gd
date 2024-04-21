@@ -8,7 +8,7 @@ onready var HTTP = $HTTPRequest
 
 signal X_PRESSED
 
-var VERSION = '1.1.3'
+var VERSION = '1.1.3a'
 var URL = "https://raw.githubusercontent.com/reckdave/Mod-Configuration/main/ModConfiguration/VERSION.json"
 
 var File_EXT = '.json' # The file extention of the file name
@@ -127,8 +127,9 @@ func _process(delta):
 			yield(get_tree().create_timer(0.2,false),"timeout")
 			menu.queue_free()
 	if ModConfig_Info['SHOW_APP']:
-		if !get_parent().get_parent().has_node('0'): return # SAFETY CHECK
-		if get_parent().get_parent().get_node('0').has_node('PC'):
+		if get_parent().get_parent().get_node("0") == null: return
+		if get_parent().get_parent().get_node("0").get_child(0) == null: return
+		if "PC" in get_parent().get_parent().get_node('0').get_child(0).name:
 			#PC_SCENE = true
 			var applic = get_parent().get_parent().get_node("0").get_child(0)
 			if applic.get_node('Aspect').has_node('ConfigAPP'): return # STOPS FROM OVER FLOWING THE PC
@@ -142,7 +143,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.doubleclick and event.button_index == BUTTON_LEFT:
-			#if (Tab.buttonValue == 6068) and CAN_OPEN:
+			if (Tab.buttonValue == 6068) and CAN_OPEN:
 				var applic = get_parent().get_parent().get_node("0").get_child(0)
 				var MENU = CONFIG_MENU.instance()
 				var LIST_BOX = MENU.get_node("Active/Config_Container/List")
