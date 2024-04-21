@@ -1,8 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ModConfiguration/Assets/FontAsset.tres" type="DynamicFont" id=1]
 
 [sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var config_node
+"
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.129412, 0.129412, 0.129412, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="GDScript" id=3]
 script/source = "extends Button
 
 var pos = Vector2()
@@ -21,8 +32,18 @@ func _button_up():
 	selected = false
 "
 
-[sub_resource type="Animation" id=2]
-resource_name = "0"
+[sub_resource type="GDScript" id=4]
+script/source = "extends Button
+
+onready var menu = get_owner()
+onready var animation = menu.get_node('ANIMATIONS')
+
+func _on_SaveButton_button_down():
+	menu.config_node._save_config()
+	animation.play('ClickSave')
+"
+
+[sub_resource type="Animation" id=5]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Active:modulate")
@@ -61,95 +82,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 245, 145 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Active/BG_0:rect_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.15 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 0.485 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Active/BG_0:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 490, 290 ), Vector2( 345, 235 ), Vector2( 200, 180 ), Vector2( 55, 125 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Active/Title_Bar:rect_size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 490, 20 ), Vector2( 345, 20 ), Vector2( 200, 20 ), Vector2( 55, 20 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Active/Title_Text:percent_visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Active/X_Text:percent_visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Active:rect_position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 225, 120 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Active:rect_scale")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.15, 0.25 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "1"
+[sub_resource type="Animation" id=6]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Active:modulate")
@@ -188,8 +121,25 @@ tracks/2/keys = {
 "values": [ Vector2( 245, 145 ), Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "ClickSave"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Active/Save_Text:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.588235, 0.588235, 0.588235, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Menu_CONFIG" type="Node2D"]
 z_index = 1
+script = SubResource( 1 )
 
 [node name="Active" type="Control" parent="."]
 margin_right = 490.0
@@ -225,6 +175,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Save_Text" type="Label" parent="Active"]
+margin_left = 420.0
+margin_top = 2.0
+margin_right = 470.0
+margin_bottom = 22.0
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "SAVE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="X_Text" type="Label" parent="Active"]
 margin_left = 470.0
 margin_right = 490.0
@@ -239,9 +203,9 @@ __meta__ = {
 
 [node name="TabButton" type="Button" parent="Active"]
 modulate = Color( 0, 0, 0, 0 )
-margin_right = 470.0
+margin_right = 420.0
 margin_bottom = 20.0
-script = SubResource( 1 )
+script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -251,6 +215,16 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 470.0
 margin_right = 490.0
 margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveButton" type="Button" parent="Active"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 420.0
+margin_right = 470.0
+margin_bottom = 20.0
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -269,9 +243,10 @@ __meta__ = {
 custom_constants/separation = 20
 
 [node name="ANIMATIONS" type="AnimationPlayer" parent="."]
-anims/0 = SubResource( 2 )
-anims/0_OLD = SubResource( 3 )
-anims/1 = SubResource( 4 )
+anims/0 = SubResource( 5 )
+anims/1 = SubResource( 6 )
+anims/ClickSave = SubResource( 7 )
 
 [connection signal="button_down" from="Active/TabButton" to="Active/TabButton" method="_button_down"]
 [connection signal="button_up" from="Active/TabButton" to="Active/TabButton" method="_button_up"]
+[connection signal="button_down" from="Active/SaveButton" to="Active/SaveButton" method="_on_SaveButton_button_down"]

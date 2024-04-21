@@ -1,65 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://ModConfiguration/MAIN.gd" type="Script" id=1]
-
-[sub_resource type="DynamicFontData" id=1]
-
-[sub_resource type="DynamicFont" id=2]
-font_data = SubResource( 1 )
-
-[sub_resource type="Theme" id=3]
-default_font = SubResource( 2 )
-
-[sub_resource type="Animation" id=4]
-tracks/0/type = "value"
-tracks/0/path = NodePath("VersionLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=5]
-tracks/0/type = "value"
-tracks/0/path = NodePath("VersionLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [node name="Config_Scene" type="Node"]
 script = ExtResource( 1 )
 
-[node name="VersionLabel" type="RichTextLabel" parent="."]
-margin_top = 200.0
-margin_right = 68.0
-margin_bottom = 220.0
-rect_scale = Vector2( 2, 2 )
-rect_clip_content = false
-theme = SubResource( 3 )
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-bbcode_enabled = true
-bbcode_text = "[center][wave amp=50 freq=2]VER:1.1"
-visible_characters = 7
-text = "VER:1.1"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ANIMATION" type="AnimationPlayer" parent="."]
-anims/INVISIBLE = SubResource( 4 )
-anims/LOAD = SubResource( 5 )
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="CONFIG_NODES" type="Node" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_request_completed"]

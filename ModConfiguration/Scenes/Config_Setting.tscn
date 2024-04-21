@@ -1,17 +1,19 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ModConfiguration/Assets/FontAsset.tres" type="DynamicFont" id=1]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
-onready var Value_Text = $Config_Value
-onready var Title_Text = $Config_Title
-onready var Underline = $Underline
-onready var Seperate = $Seperate
+onready var Value_Text = $ACTIVE/Config_Value
+onready var Title_Text = $ACTIVE/Config_Title
+onready var Underline = $ACTIVE/Underline
+onready var Seperate = $ACTIVE/Seperate
+
 var editable = true
 var config_title = ''
 var config_value
+
 
 func _ready():
 	Value_Text.visible = editable
@@ -51,17 +53,19 @@ LineEdit/styles/read_only = SubResource( 4 )
 
 [sub_resource type="GDScript" id=6]
 script/source = "extends LineEdit
+onready var OWNER = get_owner()
+onready var ANIMATION = OWNER.get_node(\"ANIMATION\")
 
 func _on_Config_Value_text_changed(new_text):
 	var vartext = str2var(new_text)
-	get_parent().config_value = vartext
+	get_parent().get_parent().config_value = vartext
 "
 
 [sub_resource type="Animation" id=7]
 resource_name = "0"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("ACTIVE:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -72,15 +76,51 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ACTIVE:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "ColourChange"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("ACTIVE/Config_Value:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Config_Setting" type="Control"]
-modulate = Color( 1, 1, 1, 0 )
+rect_pivot_offset = Vector2( 0, -20 )
 script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BG" type="ColorRect" parent="."]
+[node name="ACTIVE" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = -20.0
+margin_bottom = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="ColorRect" parent="ACTIVE"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 490.0
@@ -90,7 +130,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Config_TitleOLD" type="Label" parent="."]
+[node name="Config_TitleOLD" type="Label" parent="ACTIVE"]
 visible = false
 margin_left = 10.0
 margin_right = 245.0
@@ -104,7 +144,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Config_Title" type="RichTextLabel" parent="."]
+[node name="Config_Title" type="RichTextLabel" parent="ACTIVE"]
 margin_left = 10.0
 margin_right = 235.0
 margin_bottom = 20.0
@@ -117,7 +157,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Config_Value" type="LineEdit" parent="."]
+[node name="Config_Value" type="LineEdit" parent="ACTIVE"]
 margin_left = 240.0
 margin_right = 510.0
 margin_bottom = 22.0
@@ -131,7 +171,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Seperate" type="ColorRect" parent="."]
+[node name="Seperate" type="ColorRect" parent="ACTIVE"]
 margin_left = 235.0
 margin_right = 236.0
 margin_bottom = 20.0
@@ -140,7 +180,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Underline" type="ColorRect" parent="."]
+[node name="Underline" type="ColorRect" parent="ACTIVE"]
 visible = false
 margin_left = 10.0
 margin_top = 19.0
@@ -153,5 +193,6 @@ __meta__ = {
 
 [node name="ANIMATION" type="AnimationPlayer" parent="."]
 anims/0 = SubResource( 7 )
+anims/ColourChange = SubResource( 8 )
 
-[connection signal="text_changed" from="Config_Value" to="Config_Value" method="_on_Config_Value_text_changed"]
+[connection signal="text_changed" from="ACTIVE/Config_Value" to="ACTIVE/Config_Value" method="_on_Config_Value_text_changed"]
