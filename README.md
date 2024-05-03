@@ -15,5 +15,6 @@ This is a mod that adds settings to your mods!
 ### FOR MODDERS
 To use ModConfig in your mod, take a look at example.gd!
 
-# Support
+# Support me!
+This is a way of supporting me!
 https://ko-fi.com/reckdave
