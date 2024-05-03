@@ -17,4 +17,4 @@ To use ModConfig in your mod, take a look at example.gd!
 
 # Support me!
 This is a way of supporting me!
-https://ko-fi.com/reckdave
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C4XOEHW)
