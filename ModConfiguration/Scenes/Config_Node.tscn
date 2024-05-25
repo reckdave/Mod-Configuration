@@ -2,8 +2,12 @@
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
-export var ConfigValues : Dictionary
-export var ModAuthor : String
+export var ConfigValues : Dictionary = {}
+export var ModAuthor : String = \"\"
+export var Trusted : bool = false
+
+export var MetaDataDictionary : Dictionary = {}
+export var MetaDataArray : Array = []
 "
 
 [node name="Config_Node" type="Node"]

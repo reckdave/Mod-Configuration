@@ -5,8 +5,8 @@
 [node name="Config_Scene" type="Node"]
 script = ExtResource( 1 )
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="VersionRequest" type="HTTPRequest" parent="."]
 
 [node name="CONFIG_NODES" type="Node" parent="."]
 
-[connection signal="request_completed" from="HTTPRequest" to="." method="_request_completed"]
+[connection signal="request_completed" from="VersionRequest" to="." method="_request_completed"]

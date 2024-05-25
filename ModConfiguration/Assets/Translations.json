@@ -1,0 +1,21 @@
+{
+    "en": {
+        "logs": {
+            "MissingDictionary" : " DICTIONARY DOESNT EXIST / IS EMPTY.. CANCELLED",
+            "ValidJSON": "VALID JSON: ",
+            "InvalidJSON": "INVALID JSON: ",
+            "MissingKey": "FOUND MISSING KEY, ADDING KEY..",
+            "FoundJSON": " FOUND",
+            "CreatingJSON": "CREATING ",
+            "CreatingFolder": "CONFIG FOLDER DOESNT EXIST.. CREATING",
+            "Version": "STARTED, VER: ",
+            "FailedHTTP": "FAILED TO GET VERSION NUMBER: "
+        },
+        "alerts": {
+            "DownloadVersion": "THIS IS AN OUTDATED VERSION OF MODCONFIG \nDOWNLOAD LATEST AT THE GITHUB \nSEE LOGS FOR MORE"
+        },
+        "labels" : {
+            "SaveButton": "SAVE"
+        }
+    }
+}

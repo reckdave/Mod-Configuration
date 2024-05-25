@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ModConfiguration/Assets/FontAsset.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ModConfiguration/Assets/Icons/Trusted.png" type="Texture" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -9,11 +10,12 @@ onready var Value_Text = $ACTIVE/Config_Value
 onready var Title_Text = $ACTIVE/Config_Title
 onready var Underline = $ACTIVE/Underline
 onready var Seperate = $ACTIVE/Seperate
+onready var TrustedImage = $ACTIVE/TrustedImage
 
 var editable = true
 var config_title = ''
 var config_value
-
+var config_trusted
 
 func _ready():
 	Value_Text.visible = editable
@@ -23,6 +25,7 @@ func _ready():
 			Title_Text.ALIGN_LEFT
 		else:
 			Underline.visible = true
+			#TrustedImage.visible = true
 			config_title = '[center]' + config_title
 		Title_Text.bbcode_text = config_title
 	if editable and config_value != null:
@@ -55,6 +58,7 @@ LineEdit/styles/read_only = SubResource( 4 )
 script/source = "extends LineEdit
 onready var OWNER = get_owner()
 onready var ANIMATION = OWNER.get_node(\"ANIMATION\")
+
 
 func _on_Config_Value_text_changed(new_text):
 	var vartext = str2var(new_text)
@@ -106,7 +110,6 @@ tracks/0/keys = {
 }
 
 [node name="Config_Setting" type="Control"]
-rect_pivot_offset = Vector2( 0, -20 )
 script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -130,24 +133,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Config_TitleOLD" type="Label" parent="ACTIVE"]
+[node name="TrustedImage" type="Sprite" parent="ACTIVE"]
 visible = false
-margin_left = 10.0
-margin_right = 245.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 1 )
-text = "CONFIG_TITLE"
-align = 1
-valign = 1
-max_lines_visible = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+position = Vector2( 220, 10 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
 
 [node name="Config_Title" type="RichTextLabel" parent="ACTIVE"]
 margin_left = 10.0
+margin_top = 0.0992088
 margin_right = 235.0
-margin_bottom = 20.0
+margin_bottom = 20.0992
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]CONFIG_TITLE"

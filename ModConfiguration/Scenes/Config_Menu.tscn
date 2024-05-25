@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ModConfiguration/Assets/FontAsset.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ModConfiguration/Assets/Icons/wrench.png" type="Texture" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -39,8 +40,10 @@ onready var menu = get_owner()
 onready var animation = menu.get_node('ANIMATIONS')
 
 func _on_SaveButton_button_down():
-	menu.config_node._save_config()
-	animation.play('ClickSave')
+	var finished_loading = menu.config_node.FINISHED_LOADING
+	if finished_loading:
+		menu.config_node._save_config()
+		animation.play('ClickSave')
 "
 
 [sub_resource type="Animation" id=5]
@@ -164,9 +167,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="WrenchIcon" type="Sprite" parent="Active"]
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 2 )
+offset = Vector2( 16, 16 )
+
 [node name="Title_Text" type="Label" parent="Active"]
-margin_left = 10.0
-margin_right = 210.0
+margin_left = 20.0
+margin_right = 220.0
 margin_bottom = 20.0
 custom_fonts/font = ExtResource( 1 )
 text = "MOD CONFIG"
