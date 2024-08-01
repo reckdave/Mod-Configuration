@@ -6,7 +6,7 @@ onready var CONFIG_NODE = preload("res://ModConfiguration/Scenes/Config_Node.tsc
 onready var CONFIG_LIST = $CONFIG_NODES
 onready var HTTP = $VersionRequest
 
-const VERSION = '1.1.4'
+const VERSION = '1.1.5'
 const URL = "https://raw.githubusercontent.com/reckdave/Mod-Configuration/main/ModConfiguration/VERSION.json"
 const trusted_mods = ["KinitoFIXES","deadname-deleter","ModConfig","kinitonoboot"]
 
@@ -79,13 +79,16 @@ func MakeConfig(Config_Name := "NULL",Author := "NULL",Info := {}): # The real s
 		
 		# CHECK FOR MISSING KEY
 		
-		for key in Info:
+		for key in Contents:
 			if key in Contents:
-				pr("found")
+				pass
 			else:
-				pr(Info[key])
 				Contents[key] = Info[key]
-			
+			if not key in Info:
+				Contents.erase(key)
+		
+		Config_File.close()
+		Config_File.open(FullDir,File.WRITE)
 		# STORES THE INFO
 		
 		Config_File.store_string(JSON.print(Contents,'\t'))
